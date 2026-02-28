@@ -1228,21 +1228,21 @@ section {
       <div class="scratch-card" id="scratch1" data-number="25" data-label="Gün">
         <div class="scratch-reveal">
           <div class="scratch-number">25</div>
-          <div class="scratch-label">Gün</div>
+          <div class="scratch-label">GÜN</div>
         </div>
         <canvas></canvas>
       </div>
-      <div class="scratch-card" id="scratch2" data-number="04" data-label="Ay">
+      <div class="scratch-card" id="scratch2" data-number="Nisan" data-label="Ay">
         <div class="scratch-reveal">
-          <div class="scratch-number">04</div>
-          <div class="scratch-label">Nisan</div>
+          <div class="scratch-number" style="font-size:28px;">Nisan</div>
+          <div class="scratch-label">AY</div>
         </div>
         <canvas></canvas>
       </div>
       <div class="scratch-card" id="scratch3" data-number="2026" data-label="Yıl">
         <div class="scratch-reveal">
           <div class="scratch-number">2026</div>
-          <div class="scratch-label">Yıl</div>
+          <div class="scratch-label">YIL</div>
         </div>
         <canvas></canvas>
       </div>
@@ -1254,6 +1254,7 @@ section {
 <section class="countdown-section animate-on-scroll">
   <div class="section-title">Geri Sayım</div>
   <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+  <p class="countdown-message">Büyük güne kalan...</p>
   <div class="countdown-grid">
     <div class="countdown-item">
       <div class="countdown-number" id="days">--</div>
@@ -1272,7 +1273,6 @@ section {
       <div class="countdown-label">Saniye</div>
     </div>
   </div>
-  <p class="countdown-message">büyük güne kalan...</p>
 </section>
 
 <!-- ===== VENUE ===== -->
@@ -1459,9 +1459,8 @@ document.getElementById('introScreen').addEventListener('click',openEnvelope);
 
 function tryPlayMusic(){
   const a=document.getElementById('bgMusic');
-  if(!a.src || a.src === '' || a.src === window.location.href) {
-    // No music loaded, try loading again
-    a.src = SUPABASE_URL + '/storage/v1/object/public/music/' + INVITATION_ID + '/background.mp3';
+  if(!a.src || a.src === window.location.href) {
+    a.src = MUSIC_DIRECT_URL;
   }
   a.play().then(()=>{
     musicPlaying=true;
@@ -1619,21 +1618,12 @@ const MUSIC_PATH = INVITATION_ID + '/background.mp3';
 const MUSIC_PUBLIC_URL = SUPABASE_URL + '/storage/v1/object/public/music/' + MUSIC_PATH;
 
 // Check if music already exists in Supabase
-function loadExistingMusic() {
+const MUSIC_DIRECT_URL = SUPABASE_URL + '/storage/v1/object/public/music/' + INVITATION_ID + '/background.mp3';
+(function loadExistingMusic() {
   const audio = document.getElementById('bgMusic');
-  audio.src = MUSIC_PUBLIC_URL;
-  // Test if file exists by trying to load
-  audio.addEventListener('canplaythrough', function onReady() {
-    audio.removeEventListener('canplaythrough', onReady);
-    console.log('Music loaded from Supabase');
-  }, { once: true });
-  audio.addEventListener('error', function onErr() {
-    audio.removeEventListener('error', onErr);
-    audio.removeAttribute('src');
-    console.log('No music file found yet');
-  }, { once: true });
-}
-loadExistingMusic();
+  audio.preload = 'auto';
+  audio.src = MUSIC_DIRECT_URL;
+})();
 
 function toggleMusic() {
   const audio = document.getElementById('bgMusic');
