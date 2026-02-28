@@ -1139,8 +1139,8 @@ section {
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
   <!-- Background photo overlay -->
-  <div class="hero-bg-photo" id="heroBgPhoto" onclick="openOverlay('heroPhotoOverlay')">
-    <div class="hero-bg-placeholder" id="heroBgPlaceholder">
+  <div class="hero-bg-photo" id="heroBgPhoto">
+    <div class="hero-bg-placeholder admin-only" id="heroBgPlaceholder">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;stroke:var(--gold);opacity:0.5;">
         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
         <circle cx="12" cy="13" r="4"/>
@@ -1228,6 +1228,7 @@ section {
   <div class="venue-inner animate-on-scroll">
     <div class="section-desc">Tören Yeri</div>
     <div class="venue-name" id="venueName">Suzy Event House</div>
+    <div style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:var(--burgundy);margin-bottom:8px;">25 NİSAN 2026 • SAAT 13:00 - 17:00</div>
     <div class="venue-address" id="venueAddress">Ambarlı, Marmara Sahil Sokağı No:19, 34000 Avcılar/İstanbul</div>
     <div class="venue-map" id="venueMap" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=Suzy+Event+House+Ambarl%C4%B1+Marmara+Sahil+Sk+No:19+Avc%C4%B1lar+%C4%B0stanbul','_blank')" style="cursor:pointer;position:relative;">
       <img src="https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=300&center=lonlat:28.712,40.974&zoom=15.5&marker=lonlat:28.712,40.974;color:%236B1D2A;size:large&apiKey=a20e47a3c89e4a3a8a0ea979886e0045" alt="Suzy Event House Harita" style="width:100%;height:100%;object-fit:cover;" onerror="this.onerror=null;this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--cream-dark);\'><div style=\'font-size:40px;\'>📍</div><div style=\'font-family:Cinzel,serif;font-size:12px;letter-spacing:2px;color:var(--burgundy);\'>SUZY EVENT HOUSE</div><div style=\'font-size:13px;color:var(--text-medium);\'>Ambarlı, Marmara Sahil Sok. No:19</div><div style=\'font-size:13px;color:var(--text-medium);\'>Avcılar / İstanbul</div><div style=\'margin-top:8px;font-size:12px;color:var(--gold);font-family:Cinzel,serif;letter-spacing:2px;\'>📍 HARİTAYI AÇ</div></div>'">
@@ -1288,29 +1289,40 @@ section {
 <!-- ===== GALLERY / MEMORY UPLOAD ===== -->
 <div class="gallery-section">
   <div class="gallery-inner animate-on-scroll">
-    <div class="section-title">Anı Bırakın</div>
-    <p class="section-desc">Bu özel günden karelerinizi bizimle paylaşın</p>
+    <div class="section-title">Anılarınızı Paylaşın</div>
+    <div class="divider" style="margin:8px 0 20px;"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+    <p style="font-size:19px;color:var(--text-dark);text-align:center;line-height:1.7;max-width:420px;margin:0 auto 32px;font-weight:500;">
+      Bu özel günden kalan anılarınızı bizimle paylaşın!<br>
+      <span style="color:var(--burgundy);font-weight:600;">Fotoğraf</span> veya <span style="color:var(--burgundy);font-weight:600;">kısa video</span> yükleyebilirsiniz.
+    </p>
 
-    <div class="upload-area" id="uploadArea" onclick="document.getElementById('memoryInput').click()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-        <circle cx="12" cy="13" r="4"/>
-      </svg>
-      <p style="font-size:20px;font-weight:600;color:var(--burgundy);">📷 Fotoğraf Yükle</p>
-      <small style="font-size:15px;">Telefonunuzdan çektiğiniz fotoğrafları buradan paylaşın</small>
+    <div class="upload-area" id="uploadArea" onclick="document.getElementById('memoryInput').click()" style="padding:40px 24px;border-width:3px;border-color:var(--burgundy);background:rgba(107,29,42,0.03);">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--burgundy);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="width:30px;height:30px;">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+      </div>
+      <p style="font-size:22px;font-weight:700;color:var(--burgundy);margin-bottom:8px;">📷 Fotoğraf veya Video Yükle</p>
+      <p style="font-size:16px;color:var(--text-medium);line-height:1.5;">Telefonunuzdan dokunarak seçin</p>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:16px;">
+        <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--gold);background:rgba(201,168,76,0.1);padding:6px 14px;border-radius:20px;">📸 FOTOĞRAF</span>
+        <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--gold);background:rgba(201,168,76,0.1);padding:6px 14px;border-radius:20px;">🎬 KISA VİDEO</span>
+      </div>
     </div>
-    <div id="uploadStatus" style="display:none;text-align:center;margin-top:16px;padding:16px;border-radius:10px;background:rgba(45,106,46,0.08);border:1.5px solid rgba(45,106,46,0.3);">
-      <p style="color:#2d6a2e;font-size:16px;font-weight:600;">✅ Fotoğrafınız gönderildi!</p>
-      <small style="color:#5a8c5b;font-size:13px;">Teşekkür ederiz, anınız bizimle.</small>
+
+    <div id="uploadStatus" style="display:none;text-align:center;margin-top:20px;padding:20px;border-radius:12px;background:rgba(45,106,46,0.08);border:2px solid rgba(45,106,46,0.3);">
+      <p style="color:#2d6a2e;font-size:20px;font-weight:700;">✅ Gönderildi!</p>
+      <p style="color:#5a8c5b;font-size:15px;margin-top:4px;">Teşekkür ederiz, anınız bizimle kalacak.</p>
     </div>
+
     <input type="file" id="memoryInput" accept="image/*,video/*" multiple style="display:none" onchange="handleMemoryUpload(this)">
-
     <div class="gallery-grid" id="memoryGrid" style="display:none;"></div>
   </div>
 </div>
 
-<!-- ===== MUSIC SETUP ===== -->
-<section class="animate-on-scroll" style="text-align:center; padding: 40px 24px;">
+<!-- ===== MUSIC SETUP (admin only) ===== -->
+<section class="animate-on-scroll admin-only" style="text-align:center; padding: 40px 24px;">
   <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
   <p style="color:var(--text-light);font-size:14px;margin-top:16px;margin-bottom:8px;">Arka plan müziği eklemek için:</p>
   <button class="btn btn-outline" onclick="openOverlay('musicOverlay')" style="margin:0 auto;">🎵 Müzik Yükle</button>
@@ -1339,6 +1351,10 @@ section {
 <div class="confetti-container" id="confettiContainer"></div>
 
 <script>
+// ===== ADMIN MODE =====
+// URL'ye ?admin=true ekleyince fotoğraf/müzik yükleme görünür
+const IS_ADMIN = new URLSearchParams(window.location.search).get('admin') === 'true';
+
 // ===== INTRO ANIMATION =====
 document.body.style.overflow = 'hidden';
 
@@ -1426,7 +1442,7 @@ async function supabaseUpload(filePath, file) {
 }
 
 // ===== COUNTDOWN =====
-const targetDate = new Date('2026-04-25T00:00:00');
+const targetDate = new Date('2026-04-25T13:00:00+03:00');
 
 function updateCountdown() {
   const now = new Date();
@@ -1564,7 +1580,7 @@ function toggleMusic() {
   const audio = document.getElementById('bgMusic');
   const btn = document.getElementById('musicToggle');
   if (!audio.src || audio.src === window.location.href || audio.error) {
-    openOverlay('musicOverlay');
+    if (IS_ADMIN) openOverlay('musicOverlay');
     return;
   }
   if (musicPlaying) {
@@ -1746,7 +1762,7 @@ async function handleMemoryUpload(input) {
     // Allow re-upload after 3 seconds
     setTimeout(() => {
       uploadArea.style.display = '';
-      uploadArea.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;stroke:var(--gold);margin-bottom:12px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><p style="font-size:20px;font-weight:600;color:var(--burgundy);">📷 Daha Fazla Fotoğraf Yükle</p><small style="font-size:15px;">Telefonunuzdan çektiğiniz fotoğrafları buradan paylaşın</small>';
+      uploadArea.innerHTML = '<div style="width:64px;height:64px;border-radius:50%;background:var(--burgundy);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="width:30px;height:30px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><p style="font-size:22px;font-weight:700;color:var(--burgundy);margin-bottom:8px;">📷 Daha Fazla Yükle</p><p style="font-size:16px;color:var(--text-medium);">Başka fotoğraf veya video ekleyin</p>';
     }, 3000);
   }
 }
@@ -1861,8 +1877,23 @@ function addToCalendar(e) {
   e.preventDefault();
   const title = 'Elif Derya & Çağatay Nişan Töreni';
   const location = 'Suzy Event House, Ambarlı, Marmara Sahil Sokağı No:19, 34000 Avcılar/İstanbul';
-  const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=20260425/20260425&details=${encodeURIComponent('Nişan Töreni')}&location=${encodeURIComponent(location)}`;
+  const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=20260425T100000Z/20260425T140000Z&details=${encodeURIComponent('Nişan Töreni - Saat 13:00 - 17:00')}&location=${encodeURIComponent(location)}`;
   window.open(url, '_blank');
+}
+
+// ===== ADMIN MODE INIT =====
+if (!IS_ADMIN) {
+  // Hide admin-only elements
+  document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+} else {
+  // Enable click on hero photo for admin
+  document.getElementById('heroBgPhoto').onclick = () => openOverlay('heroPhotoOverlay');
+  document.getElementById('heroBgPhoto').style.cursor = 'pointer';
+  // Show admin indicator
+  const badge = document.createElement('div');
+  badge.style.cssText = 'position:fixed;top:12px;left:12px;z-index:9999;background:var(--burgundy);color:var(--gold);padding:6px 14px;border-radius:6px;font-family:Cinzel,serif;font-size:10px;letter-spacing:2px;';
+  badge.textContent = '🔧 ADMIN MODU';
+  document.body.appendChild(badge);
 }
 
 </script>
