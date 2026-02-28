@@ -1677,25 +1677,63 @@ async function handleMusic(input) {
 }
 
 // ===== PHOTO UPLOADS =====
-function handleHeroPhoto(input) {
+const HERO_PATH = INVITATION_ID + '/hero.jpg';
+const HERO_PUBLIC_URL = SUPABASE_URL + '/storage/v1/object/public/hero/' + HERO_PATH;
+
+async function handleHeroPhoto(input) {
   if (input.files[0]) {
+    const file = input.files[0];
+    
+    // Show immediately
     const reader = new FileReader();
     reader.onload = e => {
-      const bg = document.getElementById('heroBgPhoto');
-      const placeholder = document.getElementById('heroBgPlaceholder');
-      if(placeholder) placeholder.style.display = 'none';
-      // Remove existing img if any
-      const existing = bg.querySelector('img');
-      if(existing) existing.remove();
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.alt = 'Arka Plan Fotoğrafı';
-      bg.insertBefore(img, bg.firstChild);
+      showHeroImage(e.target.result);
     };
-    reader.readAsDataURL(input.files[0]);
+    reader.readAsDataURL(file);
     closeOverlay('heroPhotoOverlay');
+    
+    // Upload to Supabase
+    try {
+      // Try POST first, then PUT if exists
+      let res = await fetch(SUPABASE_URL + '/storage/v1/object/hero/' + HERO_PATH, {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
+        body: file
+      });
+      if (!res.ok) {
+        await fetch(SUPABASE_URL + '/storage/v1/object/hero/' + HERO_PATH, {
+          method: 'PUT',
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
+          body: file
+        });
+      }
+      console.log('Hero photo uploaded to Supabase');
+    } catch (err) {
+      console.error('Hero upload error:', err);
+    }
   }
 }
+
+function showHeroImage(src) {
+  const bg = document.getElementById('heroBgPhoto');
+  const placeholder = document.getElementById('heroBgPlaceholder');
+  if(placeholder) placeholder.style.display = 'none';
+  const existing = bg.querySelector('img');
+  if(existing) existing.remove();
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = 'Arka Plan Fotoğrafı';
+  bg.insertBefore(img, bg.firstChild);
+}
+
+// Load hero photo from Supabase on page load
+function loadHeroPhoto() {
+  const img = new Image();
+  img.onload = () => showHeroImage(HERO_PUBLIC_URL);
+  img.onerror = () => console.log('No hero photo yet');
+  img.src = HERO_PUBLIC_URL;
+}
+loadHeroPhoto();
 
 function handleMainPhoto(input) {
   if (input.files[0]) {
