@@ -1459,9 +1459,14 @@ document.getElementById('introScreen').addEventListener('click',openEnvelope);
 
 function tryPlayMusic(){
   const a=document.getElementById('bgMusic');
-  if(a.src && !a.error){
-    a.play().then(()=>{musicPlaying=true;document.getElementById('musicToggle').classList.add('playing');}).catch(()=>{});
+  if(!a.src || a.src === '' || a.src === window.location.href) {
+    // No music loaded, try loading again
+    a.src = SUPABASE_URL + '/storage/v1/object/public/music/' + INVITATION_ID + '/background.mp3';
   }
+  a.play().then(()=>{
+    musicPlaying=true;
+    document.getElementById('musicToggle').classList.add('playing');
+  }).catch(()=>{});
 }
 
 // ===== SUPABASE CONFIG =====
